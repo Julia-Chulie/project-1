@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import getPage from "";
 
-export const PageContent = ({ slug }) => {
+function PageContent({ slug }) {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -9,4 +9,6 @@ export const PageContent = ({ slug }) => {
   }, []);
 
   return <>{content & content}</>;
-};
+}
+
+export default PageContent;
