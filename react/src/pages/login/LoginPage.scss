@@ -4,6 +4,11 @@
   justify-content: center;
   align-items: center;
   background: rgb(246, 246, 246);
+
+  h1 {
+    text-align: center;
+    padding: 1em;
+  }
   span {
     cursor: pointer;
     text-decoration: underline;
@@ -18,6 +23,7 @@
     display: grid;
     padding: 2em;
     background: white;
+    animation: fadeIn 1s;
   }
 
   .form-group {
@@ -36,26 +42,43 @@
     background: rgb(243, 242, 242);
     padding: 1em;
     transition: all 0.3s;
-
+    width: 100%;
     font-weight: 600;
     &:focus,
     &:hover {
-      box-shadow: 0px 0px 0px rgb(244, 244, 244);
+      box-shadow: 0px 0px 0px rgba(252, 252, 252, 0.115);
     }
   }
 
-  p {
+  .err-message {
+    opacity: 0;
+    font-size: 0.8em;
+    color: red;
+    transition: opacity 0.3s;
+  }
+
+  .is-error-true:not(:focus-within) {
+    .err-message {
+      opacity: 1;
+    }
+  }
+
+  .switch-form {
     text-align: center;
-    padding: 1em 0;
+    margin: 1em auto;
+    span {
+      font-weight: bold;
+    }
   }
 
   .button-submit {
-    background: rgb(112, 112, 255);
+    background: rgb(74, 160, 245);
     font-size: 1.4em;
     padding: 0.5em 2em;
+
     width: fit-content;
     display: block;
-    margin: auto;
+    margin: 0.5em auto 0;
     border-radius: 10px;
     color: white;
     text-transform: uppercase;
@@ -70,5 +93,13 @@
       opacity: 0.7;
       cursor: pointer;
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    position: relative;
+    margin-top: -50px;
   }
 }
