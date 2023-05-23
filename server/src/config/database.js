@@ -15,7 +15,7 @@ const pool = mysql.createPool({
     console.log(`Connected to ${connection.config.database}`);
     connection.release();
   } catch (err) {
-    console.log('ERROR', err);
+    console.log("ERROR", err);
   }
 })();
 
