@@ -45,7 +45,7 @@ export const createPage = async (req, res) => {
     ]);
       const msg = "Page created successfully";
       res.status(200).json(msg);
-      
+
   } catch (err) {
     throw Error(err);
   }
@@ -71,7 +71,7 @@ export const updatePage = async (req, res) => {
 
 export const deletePage = async (req, res) => {
   try {
-    const query = "DELETE from page WHERE id = ?";
+    const query = "DELETE FROM page WHERE id = ?";
     const result = await Query.write(query, [req.params.id]);
     const msg = "Page deleted successfully";
     res.status(200).json(msg);
