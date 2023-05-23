@@ -21,12 +21,17 @@ function Administration() {
     { name: "Site", component: GestionSite },
   ];
   const [currentTab, setCurrentTab] = useState(<GestionPages />);
-  useEffect(() => {
-    console.log(currentTab);
-  }, [currentTab]);
+  const [currentTabName, setCurrentTabName] = useState("Pages");
+
   return (
     <div className="page-admin">
-      <Menu tabs={tabs} currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Menu
+        tabs={tabs}
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
+        currentTabName={currentTabName}
+        setCurrentTabName={setCurrentTabName}
+      />
       <Content>
         {currentTab && React.createElement(currentTab.type, currentTab.props)}
       </Content>

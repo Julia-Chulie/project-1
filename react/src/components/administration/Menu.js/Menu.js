@@ -1,8 +1,15 @@
 import "./Menu.scss";
 
-function Menu({ tabs, currentTab, setCurrentTab }) {
-  const handleTabClick = (tabComponent) => {
-    setCurrentTab(tabComponent);
+function Menu({
+  tabs,
+  currentTab,
+  setCurrentTab,
+  currentTabName,
+  setCurrentTabName,
+}) {
+  const handleTabClick = (tab) => {
+    setCurrentTab(tab.component);
+    setCurrentTabName(tab.name);
   };
 
   return (
@@ -13,8 +20,8 @@ function Menu({ tabs, currentTab, setCurrentTab }) {
             return (
               <li
                 key={tab.name}
-                className={currentTab === tab.name ? "current" : " "}
-                onClick={() => handleTabClick(tab.component)}
+                className={currentTabName === tab.name ? "current" : " "}
+                onClick={(e) => handleTabClick(tab)}
               >
                 {tab.name}
               </li>
