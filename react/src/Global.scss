@@ -9,6 +9,8 @@ html {
 body {
   font-family: "Poppins-regular", sans-serif;
   font-size: 1.4rem;
+  background: rgb(246, 246, 246);
+  font-weight: normal;
 }
 
 .box-shadow-light {
@@ -37,5 +39,23 @@ body {
     flex-direction: row;
     justify-content: center;
     gap: 2em;
+  }
+}
+
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-create {
+  background: rgb(77, 133, 245);
+  padding: 1em 2em;
+  box-shadow: 2px 2px 2px rgb(231, 231, 231);
+  color: white;
+  font-weight: bold;
+  transition: all 0.2s;
+  &:hover {
+    opacity: 0.7;
   }
 }

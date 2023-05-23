@@ -1,0 +1,26 @@
+.page-admin {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  overflow-x: hidden;
+}
+.admin-page-container {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+}
+
+.admin-page-content {
+  width: clamp(250px, 800px, 90%);
+  box-shadow: 2px 2px 2px rgb(236, 235, 235);
+  margin: auto;
+  background: white;
+  animation: slide-left 0.7s;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}

@@ -25,7 +25,7 @@ function LoginPage() {
             <p className="switch-form">
               Pas encore inscrit?{" "}
               <span onClick={(e) => setIsLoginForm(!isLoginForm)}>
-                Crée un compte
+                Créer un compte
               </span>
             </p>
           </>
