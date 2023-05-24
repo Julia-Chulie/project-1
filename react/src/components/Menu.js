@@ -11,6 +11,9 @@ function Menu() {
         <li>
           <a href="/admin">admin</a>
         </li>
+        <li>
+          <a href="/admin/pageBuilder">Page builder</a>
+        </li>
       </ul>
     </nav>
   );

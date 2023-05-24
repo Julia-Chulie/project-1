@@ -24,74 +24,73 @@
     background: white;
     animation: fadeIn 1s;
   }
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
+label {
+  font-size: 1.2em;
+}
+
+input {
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  background: rgb(243, 242, 242);
+  padding: 1em;
+  transition: all 0.3s;
+  width: 100%;
+  font-weight: 600;
+  &:focus,
+  &:hover {
+    background: rgb(250, 250, 250);
   }
+}
 
-  label {
-    font-size: 1.2em;
-  }
+.err-message {
+  opacity: 0;
+  font-size: 0.8em;
+  color: red;
+  transition: opacity 0.3s;
+}
 
-  input {
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    background: rgb(243, 242, 242);
-    padding: 1em;
-    transition: all 0.3s;
-    width: 100%;
-    font-weight: 600;
-    &:focus,
-    &:hover {
-      background: rgb(250, 250, 250);
-    }
-  }
-
+.is-error-true:not(:focus-within) {
   .err-message {
-    opacity: 0;
-    font-size: 0.8em;
-    color: red;
-    transition: opacity 0.3s;
+    opacity: 1;
+  }
+}
+
+.switch-form {
+  text-align: center;
+  margin: 1em auto;
+  span {
+    font-weight: bold;
+  }
+}
+
+.button-submit {
+  background: rgb(74, 160, 245);
+  font-size: 1.4em;
+  padding: 0.5em 2em;
+
+  width: fit-content;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  transition: opacity 0.3s;
+
+  &:disabled {
+    opacity: 0.3;
   }
 
-  .is-error-true:not(:focus-within) {
-    .err-message {
-      opacity: 1;
-    }
-  }
-
-  .switch-form {
-    text-align: center;
-    margin: 1em auto;
-    span {
-      font-weight: bold;
-    }
-  }
-
-  .button-submit {
-    background: rgb(74, 160, 245);
-    font-size: 1.4em;
-    padding: 0.5em 2em;
-
-    width: fit-content;
-    display: block;
-    margin: 0 auto;
-    border-radius: 10px;
-    color: white;
-    text-transform: uppercase;
-    border: none;
-    transition: opacity 0.3s;
-
-    &:disabled {
-      opacity: 0.3;
-    }
-
-    &:enabled:hover {
-      opacity: 0.7;
-      cursor: pointer;
-    }
+  &:enabled:hover {
+    opacity: 0.7;
+    cursor: pointer;
   }
 }
 

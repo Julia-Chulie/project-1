@@ -9,7 +9,6 @@ function GestionPages() {
           Nouvelle page
         </button>
       </header>
-
       <PagesList />
     </section>
   );

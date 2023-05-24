@@ -8,7 +8,7 @@ function PageContent({ slug }) {
     setContent(getPage(slug));
   }, []);
 
-  return <>{content & content}</>;
+  return <>{content && content}</>;
 }
 
 export default PageContent;

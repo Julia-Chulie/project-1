@@ -1,0 +1,17 @@
+.delete-single-block {
+  display: block;
+  position: absolute;
+}
+
+.child-drop-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  height: 80px;
+  width: 100%;
+  border-style: dashed;
+  p {
+    pointer-events: none;
+  }
+}

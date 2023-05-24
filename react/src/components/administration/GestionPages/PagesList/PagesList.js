@@ -20,14 +20,25 @@ function PagesList() {
 
   return (
     <div className="page-list ">
-      {pagesData.map((page) => {
+      {pagesData.map((page, idx) => {
         return (
-          <div className="page-list-single box-shadow-light text-medium ">
+          <div
+            className="page-list-single box-shadow-large text-medium "
+            key={idx}
+          >
             <h4 className="list-title"> {page.title}</h4>
             <div>
-              <img className="list-icone" src="./assets/icones/editer.png" />
+              <img
+                className="list-icone"
+                src="./assets/icones/editer.png"
+                alt="editer"
+              />
 
-              <img className="list-icone" src="./assets/icones/poubelle.png" />
+              <img
+                className="list-icone"
+                src="./assets/icones/poubelle.png"
+                alt="supprimer"
+              />
             </div>
           </div>
         );

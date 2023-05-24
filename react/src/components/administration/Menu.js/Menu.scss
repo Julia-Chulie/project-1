@@ -1,14 +1,18 @@
 $li-count: 10;
 
+.sidebar-slide {
+  box-shadow: 2px 2px 2px rgb(223, 223, 223);
+  background: white;
+  transform: translateX(-100%);
+  animation: slide-right 0.3s forwards 0.14s;
+}
+
 .admin-menu {
   height: 100vh;
   align-items: center;
   display: flex;
   justify-content: center;
-  box-shadow: 2px 2px 2px rgb(223, 223, 223);
-  background: white;
-  transform: translateX(-100%);
-  animation: slide-right 0.3s forwards 0.14s;
+
   width: clamp(180px, 250px, 25%);
   ul {
     width: 100%;

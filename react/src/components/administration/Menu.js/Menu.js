@@ -14,7 +14,7 @@ function Menu({
 
   return (
     <>
-      <nav className="admin-menu">
+      <nav className="admin-menu sidebar-slide">
         <ul>
           {tabs.map((tab) => {
             return (

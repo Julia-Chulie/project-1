@@ -21,6 +21,10 @@ body {
   box-shadow: 2px 2px 2px rgb(231, 231, 231);
 }
 
+.box-shadow-large {
+  box-shadow: 2px 2px 15px rgb(231, 231, 231);
+}
+
 .text-medium {
   font-size: 1.2em;
 }
@@ -34,6 +38,9 @@ body {
 }
 
 .main-nav-menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
   ul {
     display: flex;
     flex-direction: row;
@@ -46,10 +53,10 @@ body {
   border: none;
   outline: none;
   cursor: pointer;
+  background: #4d85f5;
 }
 
 .btn-create {
-  background: rgb(77, 133, 245);
   padding: 1em 2em;
   box-shadow: 2px 2px 2px rgb(231, 231, 231);
   color: white;
@@ -57,5 +64,20 @@ body {
   transition: all 0.2s;
   &:hover {
     opacity: 0.7;
+  }
+}
+
+.btn-back {
+  border-radius: 100%;
+  background: none;
+  transition: all 0.2s;
+  margin: 0.5em;
+  &:hover {
+    opacity: 0.4;
+    transform: translateX(-10%);
+  }
+  img {
+    height: 4em;
+    rotate: -45deg;
   }
 }
