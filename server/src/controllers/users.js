@@ -23,7 +23,9 @@ export const checkToken = async (req, res) => {
   }
 };
 
-export const signup = async (req, res) => {
+//Sign up from an account @POST
+//ROUTE /user/signup
+export const signUp = async (req, res) => {
   console.log(req.body);
   try {
     const query = "SELECT username, email, password FROM user WHERE email = ?";
@@ -43,7 +45,9 @@ export const signup = async (req, res) => {
   }
 };
 
-export const signin = async (req, res) => {
+//Sign in an existed account @POST
+//ROUTE /user/signin
+export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     const query = "SELECT * FROM user WHERE email = ?";
@@ -66,6 +70,8 @@ export const signin = async (req, res) => {
   }
 };
 
+//Get all users @GET
+//ROUTE /user
 export const allUsers = async (req, res) => {
   try {
     const query = "SELECT * FROM user";
@@ -82,6 +88,8 @@ export const allUsers = async (req, res) => {
   }
 };
 
+//Get one user by id @GET
+//ROUTE /user/:id
 export const oneUser = async (req, res) => {
   try {
     const query = "SELECT * FROM user WHERE id = ?";
@@ -99,7 +107,8 @@ export const oneUser = async (req, res) => {
   }
 };
 
-
+//Create a user account @POST
+//ROUTE /user
 export const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -114,6 +123,8 @@ export const createUser = async (req, res) => {
   }
 };
 
+//Update a user account @PUT
+//ROUTE /user/:id
 export const updateUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -129,6 +140,8 @@ export const updateUser = async (req, res) => {
   }
 };
 
+//Delete a user account @DELETE
+//ROUTE /user/:id
 export const deleteUser = async (req, res) => {
   try {
     const query = "DELETE FROM user WHERE id = ?";

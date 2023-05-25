@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
   checkToken,
-  signup,
-  signin,
+  signUp,
+  signIn,
   allUsers,
   oneUser,
   createUser,
@@ -15,8 +15,8 @@ const router = Router();
 
 router.get("/checkToken", auth, checkToken);
 
-router.post("/signup", signup);
-router.post("/signin", signin);
+router.post("/signup", signUp);
+router.post("/signin", signIn);
 
 router.get("/:id", oneUser);
 router.get("/", allUsers);
@@ -25,6 +25,6 @@ router.post("/", auth, createUser);
 
 router.put("/:id", auth, updateUser);
 
-router.delete("/:id", deleteUser);
+router.delete("/:id", auth, deleteUser);
 
 export default router;

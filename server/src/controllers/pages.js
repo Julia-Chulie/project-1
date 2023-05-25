@@ -1,5 +1,7 @@
 import Query from "../model/query.js";
 
+//Get all the pages @GET
+//ROUTE /page
 export const allPages = async (req, res) => {
   try {
     const query = "SELECT * from page";
@@ -16,6 +18,8 @@ export const allPages = async (req, res) => {
   }
 };
 
+//Get a page by id @GET
+//ROUTE /page/:id
 export const onePage = async (req, res) => {
   try {
     const query = "SELECT * from page WHERE id = ? ";
@@ -33,6 +37,8 @@ export const onePage = async (req, res) => {
   }
 };
 
+//Create a page @POST
+//ROUTE /page
 export const createPage = async (req, res) => {
   try {
     const query =
@@ -43,14 +49,15 @@ export const createPage = async (req, res) => {
       req.body.description,
       req.body.slug,
     ]);
-      const msg = "Page created successfully";
-      res.status(200).json({msg, result});
-
+    const msg = "Page created successfully";
+    res.status(200).json({ msg, result });
   } catch (err) {
     throw Error(err);
   }
 };
 
+//Update a page @PUT
+//ROUTE /page/:id
 export const updatePage = async (req, res) => {
   try {
     const query =
@@ -64,18 +71,20 @@ export const updatePage = async (req, res) => {
     ];
     const result = await Query.write(query, queryParams);
     const msg = "Page updated successfully";
-    res.status(200).json({msg, result});
+    res.status(200).json({ msg, result });
   } catch (err) {
     throw Error(err);
   }
 };
 
+//Delete a page @DELETE
+//ROUTE /page/:id
 export const deletePage = async (req, res) => {
   try {
     const query = "DELETE FROM page WHERE id = ?";
     const result = await Query.write(query, [req.params.id]);
     const msg = "Page deleted successfully";
-    res.status(200).json({msg, result});
+    res.status(200).json({ msg, result });
   } catch (err) {
     throw Error(err);
   }

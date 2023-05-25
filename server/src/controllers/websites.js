@@ -1,5 +1,7 @@
 import Query from "../model/query.js";
 
+//Get all the websites @GET
+//ROUTE /website
 export const allWebsites = async (req, res) => {
   try {
     const query = "SELECT * from website";
@@ -16,6 +18,8 @@ export const allWebsites = async (req, res) => {
   }
 };
 
+//Get a website by id @GET
+//ROUTE /website/:id
 export const oneWebsite = async (req, res) => {
   try {
     const query = "SELECT * from website WHERE id = ? ";
@@ -33,6 +37,8 @@ export const oneWebsite = async (req, res) => {
   }
 };
 
+//Create a website @POST
+//ROUTE /website
 export const createWebsite = async (req, res) => {
   try {
     const query =
@@ -42,7 +48,7 @@ export const createWebsite = async (req, res) => {
       req.body.title,
       req.body.description,
       req.body.icon,
-      req.body.url
+      req.body.url,
     ]);
     const msg = "Website created successfully";
     res.status(200).json({ msg, result });
@@ -51,6 +57,8 @@ export const createWebsite = async (req, res) => {
   }
 };
 
+//Update a website @PUT
+//ROUTE /website/:id
 export const updateWebsite = async (req, res) => {
   try {
     const query =
@@ -71,6 +79,8 @@ export const updateWebsite = async (req, res) => {
   }
 };
 
+//Delete a website @DELETE
+//ROUTE /website/:id
 export const deleteWebsite = async (req, res) => {
   try {
     const query = "DELETE FROM website WHERE id = ?";
