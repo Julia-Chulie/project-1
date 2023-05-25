@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from "../../const/Regex";
+import useFetch from "../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_URL, SUSCRIBE_URL } from "../../const/Api";
 
 function RegisterForm({
   username,
@@ -49,6 +52,37 @@ function RegisterForm({
     isUsernameValid &&
     isEmailValid;
 
+  const navigate = useNavigate();
+
+  const { sendRequest, loading, sendRequestWithDelay } = useFetch();
+
+  const handleSubmit = async (e) => {
+    const userInfo = {
+      username,
+      password,
+      email,
+    };
+    e.preventDefault();
+
+    try {
+      const response = await sendRequest(SUSCRIBE_URL, {
+        method: "POST",
+        body: JSON.stringify({ ...userInfo }),
+      });
+      try {
+        const response = await sendRequest(LOGIN_URL, {
+          method: "POST",
+          body: JSON.stringify({ username, password }),
+        });
+        console.log("Réponse de la requête :", response);
+        navigate("/admin");
+      } catch (error) {
+        console.log("Erreur lors de la requête :", error);
+      }
+    } catch (error) {
+      console.log("Erreur lors de la requête :", error);
+    }
+  };
   return (
     <form className="register-form login-page-form box-shadow-medium">
       <h1>Inscription</h1>

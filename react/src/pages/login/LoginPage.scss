@@ -22,7 +22,7 @@
     display: grid;
     padding: 2em;
     background: white;
-    animation: fadeIn 1s;
+    animation: fadeInForm 1s;
   }
 }
 .form-group {
@@ -71,7 +71,7 @@ input {
 }
 
 .button-submit {
-  background: rgb(74, 160, 245);
+  background: #4d85f5;
   font-size: 1.4em;
   padding: 0.5em 2em;
 
@@ -94,7 +94,7 @@ input {
   }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInForm {
   0% {
     opacity: 0;
     position: relative;

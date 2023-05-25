@@ -1,4 +1,3 @@
-import React from "react";
 import { BLOCKS } from "../../../const/Blocks";
 import BasicBlock from "../Blocks/BasicBlock";
 import ParentBlock from "../Blocks/ParentBlock";
@@ -11,38 +10,37 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
     setPageBlocks(newBlockSet);
   };
 
-  const handleRemoveChildBlock = (parentIdx, childBlockIdx) => {
-    const parentBlock = pageBlocks[parentIdx];
+  const handleRemoveChildBlock = (parentBlockId, childBlockIdx) => {
+    const parentBlock = pageBlocks.find((block) => block.id === parentBlockId);
+    console.log(parentBlock);
     if (parentBlock && parentBlock.children) {
-      parentBlock.children.splice(childBlockIdx, 1);
+      delete parentBlock.children[childBlockIdx];
       setPageBlocks([...pageBlocks]);
     }
   };
 
   const handleMoveUp = (idx) => {
     if (idx > 0) {
-      setPageBlocks((prevBlocks) => {
-        const newBlocks = [...prevBlocks];
-        const temp = newBlocks[idx];
-        newBlocks[idx] = newBlocks[idx - 1];
-        newBlocks[idx - 1] = temp;
-        return newBlocks;
-      });
+      const newBlockSet = [...pageBlocks];
+      const temp = newBlockSet[idx];
+      newBlockSet[idx] = newBlockSet[idx - 1];
+      newBlockSet[idx - 1] = temp;
+      setPageBlocks(newBlockSet);
     }
   };
+
   const handleMoveDown = (idx) => {
     if (idx < pageBlocks.length - 1) {
-      setPageBlocks((prevBlocks) => {
-        const newBlocks = [...prevBlocks];
-        const temp = newBlocks[idx];
-        newBlocks[idx] = newBlocks[idx + 1];
-        newBlocks[idx + 1] = temp;
-        return newBlocks;
-      });
+      const newBlockSet = [...pageBlocks];
+      const temp = newBlockSet[idx];
+      newBlockSet[idx] = newBlockSet[idx + 1];
+      newBlockSet[idx + 1] = temp;
+      setPageBlocks(newBlockSet);
     }
   };
-  const handleMoveChildUp = (parentIdx, childIdx) => {
-    const parentBlock = pageBlocks[parentIdx];
+
+  const handleMoveChildUp = (parentBlockId, childIdx) => {
+    const parentBlock = pageBlocks.find((block) => block.id === parentBlockId);
     if (parentBlock && parentBlock.children && childIdx > 0) {
       const newChildSet = [...parentBlock.children];
       const temp = newChildSet[childIdx];
@@ -52,8 +50,8 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
       setPageBlocks([...pageBlocks]);
     }
   };
-  const handleMoveChildDown = (parentIdx, childIdx) => {
-    const parentBlock = pageBlocks[parentIdx];
+  const handleMoveChildDown = (parentBlockId, childIdx) => {
+    const parentBlock = pageBlocks.find((block) => block.id === parentBlockId);
     if (
       parentBlock &&
       parentBlock.children &&
@@ -67,10 +65,10 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
       setPageBlocks([...pageBlocks]);
     }
   };
+
   const handleDragOver = (event) => {
     event.preventDefault();
   };
-
   const handleMainDrop = (event) => {
     const blockId = event.dataTransfer.getData("blockId");
     const parentBlockId = event.target.getAttribute("data-parent");
@@ -83,49 +81,36 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
   };
   const handleDrop = (event) => {
     event.preventDefault();
-
     const blockId = event.dataTransfer.getData("blockId");
-
     const selectedBlock = BLOCKS.find(
       (block) => block.id.toString() === blockId
     );
-
     if (selectedBlock) {
-      const parentBlockId = event.target.getAttribute("data-parent");
-      if (parentBlockId) {
-        const parentIdx = parseInt(parentBlockId);
-        const clonedBlock = JSON.parse(JSON.stringify(selectedBlock)); // Cloner le bloc
-        handleChildDrop(parentIdx, clonedBlock);
-      } else {
-        const clonedBlock = JSON.parse(JSON.stringify(selectedBlock)); // Cloner le bloc
-        setPageBlocks([...pageBlocks, clonedBlock]);
-      }
+      setPageBlocks([...pageBlocks, selectedBlock]);
     }
   };
 
-  const handleChildDrop = (parentIdx, blockId) => {
-    const updatedPageBlocks = JSON.parse(JSON.stringify(pageBlocks));
-    const parentBlock = updatedPageBlocks[parentIdx];
+  const handleChildDrop = (parentBlockId, blockId) => {
+    const parentBlock = pageBlocks.find((block) => block.id === parentBlockId);
     const childBlock = BLOCKS.find((block) => block.id === blockId);
     if (parentBlock && parentBlock.isAbleToHaveChildren && childBlock) {
       parentBlock.children.push(childBlock);
-      setPageBlocks(updatedPageBlocks);
+      setPageBlocks([...pageBlocks]);
     }
   };
 
-  const handleUpdateBlockContent = (parentIdx, blockIdx, newContent) => {
-    const updatedBlocks = [...pageBlocks];
-
-    if (parentIdx === undefined) {
-      updatedBlocks[blockIdx].content = newContent;
-    } else {
-      const parentBlock = updatedBlocks[parentIdx];
-      parentBlock.children[blockIdx].content = newContent;
-    }
-
+  const handleUpdateBlockContent = (blockId, newContent) => {
+    const updatedBlocks = pageBlocks.map((block) => {
+      if (block.id === blockId) {
+        return {
+          ...block,
+          content: newContent,
+        };
+      }
+      return block;
+    });
     setPageBlocks(updatedBlocks);
   };
-
   return (
     <div
       className="builder-preview box-shadow-medium"
@@ -139,6 +124,7 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
           }`}
           key={idx}
         >
+          {/* Créer component TOOLBAR */}
           <div className="block-toolbar ">
             <div
               className="block-tool delete-single-block"
@@ -159,24 +145,27 @@ function BuilderPreview({ setPageBlocks, pageBlocks }) {
               <img src="../assets/icones/chevron.png" alt="Descendre" />
             </div>
           </div>
+          {/* Créer component TOOLBAR */}
           {!block.isAbleToHaveChildren ? (
             <BasicBlock
-              blockIdx={idx}
               block={block}
-              handleUpdateBlockContent={handleUpdateBlockContent}
+              onSave={(newContent) =>
+                handleUpdateBlockContent(block.id, newContent)
+              }
             />
           ) : (
-            <ParentBlock
-              parentIdx={idx}
-              handleRemoveBlock={handleRemoveBlock}
-              handleUpdateBlockContent={handleUpdateBlockContent}
-              block={block}
-              handleMoveChildUp={handleMoveChildUp}
-              handleMoveChildDown={handleMoveChildDown}
-              handleMainDrop={handleMainDrop}
-              handleChildDrop={handleChildDrop}
-              handleRemoveChildBlock={handleRemoveChildBlock}
-            />
+            <>
+              <ParentBlock
+                handleRemoveBlock={handleRemoveBlock}
+                handleUpdateBlockContent={handleUpdateBlockContent}
+                block={block}
+                handleMoveChildUp={handleMoveChildUp}
+                handleMoveChildDown={handleMoveChildDown}
+                handleMainDrop={handleMainDrop}
+                handleChildDrop={handleChildDrop}
+                handleRemoveChildBlock={handleRemoveChildBlock}
+              />
+            </>
           )}
         </div>
       ))}

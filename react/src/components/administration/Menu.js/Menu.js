@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import "./Menu.scss";
 
 function Menu({
@@ -12,9 +13,18 @@ function Menu({
     setCurrentTabName(tab.name);
   };
 
+  const menuRef = useRef();
+
+  const toggleMenu = () => {
+    menuRef.current.classList.toggle("close-menu");
+  };
   return (
     <>
-      <nav className="admin-menu sidebar-slide">
+      <nav ref={menuRef} className="admin-menu sidebar-slide">
+        <div onClick={toggleMenu} className="burger">
+          {" "}
+          BURGER{" "}
+        </div>
         <ul>
           {tabs.map((tab) => {
             return (

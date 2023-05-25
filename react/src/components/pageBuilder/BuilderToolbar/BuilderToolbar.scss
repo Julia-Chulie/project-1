@@ -1,0 +1,33 @@
+.builder-toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  border-radius: 3px;
+  z-index: 5000;
+  margin: 0.5em;
+  button {
+    border-radius: 100%;
+    border: none;
+    outline: none;
+    transition: all 0.2s;
+    margin: 0.5em;
+    background: rgb(48, 245, 48);
+    display: flex;
+    align-items: center;
+    height: 3.5em;
+    width: 3.5em;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+
+      transition: all 0.2s;
+    }
+  }
+
+  .builder-toolbar-icone {
+    height: 2.5em;
+    cursor: pointer;
+  }
+}

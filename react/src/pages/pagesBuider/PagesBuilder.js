@@ -4,6 +4,8 @@ import BuilderSidebar from "../../components/pageBuilder/BuilderSidebar/BuilderS
 import "./PagesBuilder.scss";
 import TabSiteInfo from "../../components/pageBuilder/TabSiteInfo/TabSiteInfo";
 import { BLOCKS } from "../../const/Blocks";
+import { AdminProvider } from "../../components/context/AdminProvider";
+import BuilderToolbar from "../../components/pageBuilder/BuilderToolbar/BuilderToolbar";
 const pageData = {
   title: "Contact",
   slug: "/contact",
@@ -22,7 +24,8 @@ function PagesBuilder() {
   }, [pageBlocks]);
 
   return (
-    <div className="page-builder">
+    <div className="page-builder page">
+      <BuilderToolbar pageBlocks={pageBlocks} />
       <BuilderSidebar
         pageInfo={pageInfo}
         setPageInfo={setPageInfo}

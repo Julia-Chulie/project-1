@@ -7,12 +7,15 @@ $li-count: 10;
   animation: slide-right 0.3s forwards 0.14s;
 }
 
+.burger {
+  display: none;
+}
 .admin-menu {
   height: 100vh;
   align-items: center;
   display: flex;
   justify-content: center;
-
+  position: initial;
   width: clamp(180px, 250px, 25%);
   ul {
     width: 100%;
@@ -46,5 +49,24 @@ $li-count: 10;
 @keyframes slide-right {
   100% {
     transform: translateX(0%);
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-menu {
+    transition: transform 0.7s;
+    position: fixed;
+    z-index: 10000;
+  }
+
+  .close-menu {
+    transform: translateX(-100%) !important;
+  }
+  .burger {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translateX(100%);
+    display: block;
   }
 }

@@ -81,3 +81,13 @@ body {
     rotate: -45deg;
   }
 }
+
+.page {
+  animation: pageAnimation 0.5s;
+}
+
+@keyframes pageAnimation {
+  0% {
+    opacity: 0;
+  }
+}

@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from "../../const/Regex";
-
+import { useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { LOGIN_URL } from "../../const/Api";
 function LoginForm({
   username,
   password,
@@ -14,11 +16,11 @@ function LoginForm({
     setPassword("");
     setUsername("");
   }, []);
-
+  const navigate = useNavigate();
   // const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidUsername, setIsValidUsername] = useState(true);
-  const formRef = useRef();
+
   // const handleEmailChange = (e) => {
   //   setEmail(e.target.value);
   //   setIsValidEmail(EMAIL_REGEX.test(e.target.value));
@@ -37,10 +39,28 @@ function LoginForm({
   const isPasswordValid = PASSWORD_REGEX.test(password);
   const isUsernameValid = USERNAME_REGEX.test(username);
   const canSubmit = isUsernameValid && isPasswordValid;
+  const { sendRequest, loading, sendRequestWithDelay } = useFetch();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await sendRequest(LOGIN_URL, {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      });
+      console.log("Réponse de la requête :", response);
+      navigate("/admin");
+    } catch (error) {
+      console.log("Erreur lors de la requête :", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log("data :" + data, "loading :" + loading, "error:" + error);
+  // }, [data, loading, error]);
   return (
     <form
+      onSubmit={handleSubmit}
       className="login-form login-page-form box-shadow-medium"
-      ref={formRef}
     >
       <h1>Connexion</h1>
 

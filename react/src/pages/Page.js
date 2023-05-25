@@ -1,8 +1,27 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import parse from "html-react-parser";
 
-import { PageContent } from "../components/page/PageContent";
+function renderBlock(block) {
+  const { balise, style, content, children } = block;
+  const Tag = balise;
 
-function Page(slug) {
-  return <PageContent slug={slug}></PageContent>;
+  return (
+    <Tag style={style}>
+      {parse(content)}
+      {children.map((child) => renderBlock(child))}
+    </Tag>
+  );
 }
+
+function Page() {
+  const [pageContent, setPageContent] = useState([]);
+
+  useEffect(() => {
+    const content = localStorage.getItem("page");
+    setPageContent(JSON.parse(content));
+  }, []);
+
+  return <>{pageContent.map((block) => renderBlock(block))}</>;
+}
+
 export default Page;

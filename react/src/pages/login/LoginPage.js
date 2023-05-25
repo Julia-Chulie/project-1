@@ -10,7 +10,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="login-page">
+    <div className="login-page page">
       <div className="login-page-form-container">
         {!isLoginForm ? (
           <>
