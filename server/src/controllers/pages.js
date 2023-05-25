@@ -36,15 +36,15 @@ export const onePage = async (req, res) => {
 export const createPage = async (req, res) => {
   try {
     const query =
-      "INSERT INTO page (title, description, slug, user_id) VALUES (?,?,?,?)";
+      "INSERT INTO page (website_id, title, description, slug) VALUES (?,?,?,?)";
     const result = await Query.write(query, [
+      req.body.website_id,
       req.body.title,
       req.body.description,
       req.body.slug,
-      req.body.user_id,
     ]);
       const msg = "Page created successfully";
-      res.status(200).json(msg);
+      res.status(200).json({msg, result});
 
   } catch (err) {
     throw Error(err);
@@ -54,8 +54,9 @@ export const createPage = async (req, res) => {
 export const updatePage = async (req, res) => {
   try {
     const query =
-      "UPDATE page SET title = ?, description = ?, slug = ? WHERE id = ?";
+      "UPDATE page SET website_id = ?, title = ?, description = ?, slug = ? WHERE id = ?";
     const queryParams = [
+      req.body.website_id,
       req.body.title,
       req.body.description,
       req.body.slug,
@@ -63,7 +64,7 @@ export const updatePage = async (req, res) => {
     ];
     const result = await Query.write(query, queryParams);
     const msg = "Page updated successfully";
-    res.status(200).json(msg);
+    res.status(200).json({msg, result});
   } catch (err) {
     throw Error(err);
   }
@@ -74,7 +75,7 @@ export const deletePage = async (req, res) => {
     const query = "DELETE FROM page WHERE id = ?";
     const result = await Query.write(query, [req.params.id]);
     const msg = "Page deleted successfully";
-    res.status(200).json(msg);
+    res.status(200).json({msg, result});
   } catch (err) {
     throw Error(err);
   }

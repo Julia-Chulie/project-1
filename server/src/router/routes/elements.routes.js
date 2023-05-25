@@ -3,6 +3,7 @@ import {
   allElements,
   oneElement,
   createElement,
+  createElementType,
   updateElement,
   deleteElement,
 } from "../../controllers/elements.js";
@@ -13,6 +14,7 @@ router.get("/", allElements);
 router.get("/:id", oneElement);
 
 router.post("/", createElement);
+router.post("/addType", createElementType);
 
 router.put("/:id", updateElement);
 

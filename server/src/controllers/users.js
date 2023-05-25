@@ -13,7 +13,7 @@ export const checkToken = async (req, res) => {
 
     if (user) {
       const msg = "Recovered user successfully";
-      res.status(200).json(msg, user);
+      res.status(200).json({ msg, user });
     } else {
       const msg = "No account yet";
       res.status(200).json(msg);
@@ -46,8 +46,8 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const query1 = "SELECT * FROM user WHERE email = ?";
-    const [user] = await Query.findByValue(query1, email);
+    const query = "SELECT * FROM user WHERE email = ?";
+    const [user] = await Query.findByValue(query, email);
     console.log(email, user);
     if (!user || user.email !== req.body.email) {
       res.status(401).json("Error identification");
@@ -87,7 +87,7 @@ export const oneUser = async (req, res) => {
     const query = "SELECT * FROM user WHERE id = ?";
     const user = await Query.findByValue(query, req.params.id);
 
-    if (user) {
+    if (user.length) {
       const msg = "Recovered user successfully";
       res.status(200).json({ msg, user });
     } else {
@@ -99,6 +99,7 @@ export const oneUser = async (req, res) => {
   }
 };
 
+
 export const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -106,7 +107,8 @@ export const createUser = async (req, res) => {
     const query =
       "INSERT INTO user (username, email, password, isAdmin) VALUES (?,?,?,0)";
     const result = await Query.write(query, [username, email, hashedPassword]);
-    res.status(201).json({ message: "User created successfully", result });
+    const msg = "User created successfully";
+    res.status(201).json({ msg, result });
   } catch (error) {
     throw Error(error);
   }
@@ -114,18 +116,14 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const { id } = req.params;
     const { username, email, password } = req.body;
     const hashedPassword = await hash(password, saltRounds);
     const query =
       "UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?";
-    const result = await Query.write(query, [
-      username,
-      email,
-      hashedPassword,
-      id,
-    ]);
-    res.status(200).json({ message: "User updated successfully", result });
+    const queryParams = [username, email, hashedPassword, req.params.id];
+    const result = await Query.write(query, queryParams);
+    const msg = "User updated successfully";
+    res.status(200).json({ msg, result });
   } catch (error) {
     throw Error(error);
   }

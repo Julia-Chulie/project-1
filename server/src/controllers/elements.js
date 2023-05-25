@@ -11,7 +11,7 @@ export const allElements = async (req, res) => {
     } else {
       const msg = "No element yet";
       res.status(200).json(msg);
-    }
+    }                   
   } catch (error) {
     throw Error(error);
   }
@@ -37,10 +37,10 @@ export const oneElement = async (req, res) => {
 export const createElement = async (req, res) => {
   try {
     const query =
-      "INSERT INTO element (content, type_id, isDefault) VALUES (?,?,0)";
+      "INSERT INTO element (content, element_type_id, isDefault) VALUES (?,?,0)";
     const result = await Query.write(query, [
       req.body.content,
-      req.body.type_id,
+      req.body.element_type_id,
     ]);
     const msg = "Element created successfully";
     res.status(200).json({ msg, result });
@@ -51,10 +51,10 @@ export const createElement = async (req, res) => {
 
 export const updateElement = async (req, res) => {
   try {
-    const query = "UPDATE element SET content = ?, type_id = ? WHERE id = ?";
-    const queryResult = [req.body.content, req.body.type_id];
-    const result = await Query.write(query, queryResult);
-    const msg = "Element updates successfully";
+    const query = "UPDATE element SET content = ?, element_type_id = ? WHERE id = ?";
+    const queryParams = [req.body.content, req.body.element_type_id, req.params.id];
+    const result = await Query.write(query, queryParams);
+    const msg = "Element updated successfully";
     res.status(200).json({ msg, result });
   } catch (error) {
     throw Error(error);
@@ -67,6 +67,18 @@ export const deleteElement = async (req, res) => {
     const result = await Query.write(query, req.params.id);
     const msg = "Element deleted successfully";
     res.status(200).json({ msg, result });
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export const createElementType = async (req, res) => {
+  try {
+    const query = " INSERT INTO element_type (name) VALUES (?)";
+    const result = await Query.write(query, req.body.name);
+    const msg = "Type created successfully";
+    res.status(200).json({msg, result});
+
   } catch (error) {
     throw Error(error);
   }
