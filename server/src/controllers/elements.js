@@ -5,7 +5,7 @@ import Query from "../model/query.js";
 export const allElements = async (req, res) => {
   try {
     const query =
-      "SELECT element.id, element.content, element_type.name FROM element JOIN type ON element.type_id = type.id";
+      "SELECT element.id, element.content FROM element";
     const result = await Query.find(query);
     if (result.length) {
       const msg = "Elements found successfully";
@@ -26,6 +26,7 @@ export const oneElement = async (req, res) => {
     const query =
       "SELECT element.id, element.content, element_type.name FROM element JOIN type ON element.element_type_id = element_type.id WHERE element.id = ?";
     const result = await Query.findByValue(query, req.params.id);
+
     if (result.length > 2) {
       const msg = "Element found succcessfully";
       res.status(200).json({ msg, result });
