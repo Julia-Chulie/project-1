@@ -1,0 +1,17 @@
+# Ignorer les fichiers de configuration spécifiques à l'IDE
+.vscode/
+.idea/
+
+# Ignorer les fichiers de dépendances installés avec npm ou Yarn
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignorer les fichiers de sortie de build
+dist/
+build/
+
+# Ignorer les fichiers de sauvegarde et de cache
+*.bak
+*.log
+.cache/
